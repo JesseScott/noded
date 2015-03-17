@@ -1,12 +1,16 @@
 (function(){
   'use strict';
 
-  var module = angular.module('app', ['onsen','ngResource']);
+  /* APP */
+
+  var module = angular.module('app', ['onsen','ngResource', 'bookappServices']);
+
+  /* CONTROLLERS */
 
   module.controller('AppController', function($scope, $data) {
     $scope.doSomething = function() {
       setTimeout(function() {
-        alert('tappaed');
+        alert('tapped');
       }, 100);
     };
   });
@@ -14,19 +18,23 @@
   module.controller('DetailController', function($scope, $data) {
     $scope.item = $data.selectedItem;
   });
-
+/*
   module.controller('MasterController', function($scope, $data, ParseService) {
+
+    // On startup...
+    $scope.nodeList = [];
+    //$scope.init();
 
     // Fetch Nodes
     $scope.getNodes = function() {
       ParseService.getNodes(function(results) {
         $scope.$apply(function() {
-          $scope.items = results;
+          $scope.nodeList = results;
+          console.log("HERE");
         });
       });
     }
 
-    /*
     $scope.items = $data.items;
 
     $scope.showDetail = function(index) {
@@ -34,8 +42,39 @@
       $data.selectedItem = selectedItem;
       $scope.navigator.pushPage('detail.html', {title : selectedItem.title});
     };
-    */
+
   });
+*/
+  var MasterController = function($scope,  $data, ParseService) {
+        // On startup...
+        $scope.nodeList = [];
+        //$scope.init();
+
+        // Fetch Nodes
+        $scope.getNodes = function() {
+          ParseService.getNodes(function(results) {
+            $scope.$apply(function() {
+              $scope.nodeList = results;
+              console.log("HERE");
+            });
+          });
+        }
+
+        /*
+        $scope.items = $data.items;
+
+        $scope.showDetail = function(index) {
+          var selectedItem = $data.items[index];
+          $data.selectedItem = selectedItem;
+          $scope.navigator.pushPage('detail.html', {title : selectedItem.title});
+        };
+        */
+  }
+  MasterController.$inject = ['$scope', '$data', 'ParseService'];
+  module.controller('MasterController', MasterController);
+
+
+  /* FACTORIES */
 
   module.factory('$data', function() {
       var data = {};
@@ -65,8 +104,7 @@
 
       return data;
   });
-
-
+/*
   module.factory('ParseService', function($resource) {
 
       // Init
@@ -110,7 +148,7 @@
       // The factory function returns ParseService, which is injected into controllers.
       return ParseService;
   });
-
+*/
 
 
 })();
