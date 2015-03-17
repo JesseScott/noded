@@ -22,27 +22,30 @@
   <script src="js/app.js"></script>
   <script>
     ons.ready(function() {
+
     });
   </script>
 
   <style>
+
   </style>
 </head>
 
-<body ng-controller="AppController">    
+<body ng-controller="AppController">
 
-  <ons-navigator var="navi">
+  <ons-navigator var="navigator">
     <ons-page>
       <ons-toolbar>
-        <div class="center">Master Details</div>
+        <div class="center">noded</div>
       </ons-toolbar>
 
       <ons-list ng-controller="MasterController">
         <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
           <ons-row>
-            <ons-col width="60px"> 
+            <ons-col width="60px">
               <div class="item-thum"></div>
             </ons-col>
+
             <ons-col>
               <header>
                 <span class="item-title">{{item.title}}</span>
@@ -50,7 +53,8 @@
               </header>
               <p class="item-desc">{{item.desc}}</p>
             </ons-col>
-          </ons-row>                          
+
+          </ons-row>
         </ons-list-item>
       </ons-list>
     </ons-page>
@@ -67,7 +71,7 @@
       <ons-list modifier="inset" style="margin-top: 10px">
         <ons-list-item class="item">
           <ons-row>
-            <ons-col width="60px"> 
+            <ons-col width="60px">
               <div class="item-thum"></div>
             </ons-col>
             <ons-col>
@@ -100,5 +104,5 @@
     </ons-page>
   </ons-template>
 
-</body>  
+</body>
 </html>
