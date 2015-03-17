@@ -5,7 +5,7 @@
 //var app = angular.module('app', []);
 //var module = angular.module('app', ['onsen']);
 
-angular.module('bookappServices', ['ngResource']).factory('ParseService', function($resource) {
+angular.module('appServices', ['ngResource']).factory('ParseService', function($resource) {
 
     // Initialize Parse API and objects.
     Parse.initialize("BiYJKFD8IxfkHxzoTxfW4nYE3im1Jvhc6Jy2v7j8", "AtXojjwtcnc4a6WkxJZcTrq7smHEe4iRI2EKYVIw");
@@ -80,18 +80,6 @@ angular.module('bookappServices', ['ngResource']).factory('ParseService', functi
           },
           error : function(error) {
             alert("Error" + error.message);
-          }
-        });
-      },
-
-      addBook : function addBook(_name, _status, _visibility, _location, callback) {
-        var object = new Book();
-        object.save({name:_name, owner:loggedInUser.get('username'), status:_status, visibility:_visibility, location:_location}, {
-          success: function(object) {
-            callback();
-          },
-          error: function(error) {
-            alert("Error: " + error.message);
           }
         });
       },

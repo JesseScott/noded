@@ -3,7 +3,7 @@
 
   /* APP */
 
-  var module = angular.module('app', ['onsen','ngResource', 'bookappServices']);
+  var module = angular.module('app', ['onsen','ngResource', 'appServices']);
 
   /* CONTROLLERS */
 
@@ -51,14 +51,11 @@
         //$scope.init();
 
         // Fetch Nodes
-        $scope.getNodes = function() {
           ParseService.getNodes(function(results) {
             $scope.$apply(function() {
-              $scope.nodeList = results;
-              console.log("HERE");
+              $scope.items = results;
             });
           });
-        }
 
         /*
         $scope.items = $data.items;
