@@ -2,9 +2,6 @@
 
 /* Services */
 
-//var app = angular.module('app', []);
-//var module = angular.module('app', ['onsen']);
-
 angular.module('appServices', ['ngResource']).factory('ParseService', function($resource) {
 
     // Initialize Parse API and objects.
