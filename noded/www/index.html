@@ -109,6 +109,11 @@
                       <td>{{ item.get('point').latitude }}, {{ item.get('point').longitude }}</td>
                     </tr>
                     <tr>
+                      <th>UPDATED</th>
+                      <td></td>
+                      <td>{{ item.updatedAt.toDateString() }}</td>
+                    </tr>
+                    <tr>
                       <th>NOTES</th>
                       <td></td>
                       <td>{{ item.get('notes')  + " "}}</td>
@@ -117,15 +122,12 @@
                 </ons-col>
             </ons-row>
         </ons-list-item>
-
-        <ons-list-item ng-click="doSomething()">
+        <ons-list-item>
           <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
-          Add a note
+          <input type="text" class="text-input" placeholder="text" value="" ng-model="note">
+          <button class="button button--light" ng-click="addNote(note)">submit</button>
         </ons-list-item>
       </ons-list>
-
-
-      <br>
 
     </ons-page>
   </ons-template>

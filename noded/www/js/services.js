@@ -94,6 +94,13 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         });
       },
 
+      // Create A New Node
+      addNote : function addNote(object, message) {
+        // get notes
+        // addend note
+        // save notes
+      },
+
       // Get current logged in user
       getUser : function getUser() {
         if(loggedInUser) {

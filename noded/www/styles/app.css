@@ -33,10 +33,14 @@
 .detail-table {
 
 }
+.text-input {
+	padding: 10px;
+}
 .detail-photo {
   background-color: #ccc;
 	width: 100%;
-	height: auto;
+	height: 100%;
+	overflow: hidden;
   border-radius: 4px;
 }
 .detail-ssid {
