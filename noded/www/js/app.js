@@ -29,10 +29,9 @@
           });
 
         $scope.showDetail = function(index) {
-          var selectedItem = $scope.items[index];
-          //alert(index);
-          $data.selectedItem = selectedItem;
-          $scope.navigator.pushPage('detail.html', {title : selectedItem.get('ssid')});
+          var item = $scope.items[index];
+          $data.selectedItem = item;
+          $scope.navigator.pushPage('detail.html', {title : item.get('ssid')});
         };
 
   }

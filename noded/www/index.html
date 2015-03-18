@@ -39,13 +39,17 @@
     <ons-page>
 
         <ons-toolbar>
-          <div class="center">noded</div>
+          <div class="center">
+            noded
+          </div>
         </ons-toolbar>
         <ons-list ng-controller="MasterController">
             <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
                 <ons-row>
                     <ons-col width="60px">
-                        <div class="item-thum"></div>
+                        <div class="item-thum">
+                          <img ng-src="{{ item.get('thumbnail').url() }}">
+                        </div>
                     </ons-col>
                     <ons-col>
                         <header>
@@ -63,23 +67,55 @@
     <ons-page ng-controller="DetailController">
 
       <ons-toolbar>
-        <div class="left"><ons-back-button>Back</ons-back-button></div>
-        <div class="center">Details</div>
+        <div class="left"><ons-back-button></ons-back-button></div>
+        <div class="center">{{ item.get('ssid') }}</div>
       </ons-toolbar>
 
       <ons-list modifier="inset" style="margin-top: 10px">
-        <ons-list-item class="item">
-          <ons-row>
-            <ons-col width="60px">
-              <div class="item-thum"></div>
-            </ons-col>
-            <ons-col>
-              <header>
-                <span class="item-ssid">{{ item.get('ssid') }}</span>
-              </header>
-              <p class="item-owner">{{ item.get('owner') }}</p>
-            </ons-col>
-          </ons-row>
+        <ons-list-item class="detail">
+            <ons-row>
+                <ons-col>
+                  <div class="detail-photo">
+                    <img ng-src="{{ item.get('photo').url() }}">
+                  </div>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                  <table class="detail-table">
+                    <tr>
+                      <tr>
+                        <th>BUSINESS</th>
+                        <td></td>
+                        <td>{{ item.get('owner') }}</td>
+                      </tr>
+                      <th>NETWORK</th>
+                      <td></td>
+                      <td>{{ item.get('ssid') }}</td>
+                    </tr>
+                    <tr>
+                      <th>PASSWORD</th>
+                      <td></td>
+                      <td>{{ item.get('password') }}</td>
+                    </tr>
+                    <tr>
+                      <th>SECURITY</th>
+                      <td></td>
+                      <td>{{ item.get('security') }}</td>
+                    </tr>
+                    <tr>
+                      <th>LOCATION</th>
+                      <td></td>
+                      <td>{{ item.get('point').latitude }}, {{ item.get('point').longitude }}</td>
+                    </tr>
+                    <tr>
+                      <th>NOTES</th>
+                      <td></td>
+                      <td>{{ item.get('notes')  + " "}}</td>
+                    </tr>
+                </table>
+                </ons-col>
+            </ons-row>
         </ons-list-item>
 
         <ons-list-item ng-click="doSomething()">

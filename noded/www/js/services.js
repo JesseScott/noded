@@ -73,7 +73,7 @@ angular.module('appServices', ['ngResource']).factory('ParseService', function($
       // Get All Nodes
       getNodes : function getNodes(callback) {
         var query = new Parse.Query(Node);
-
+        //query.include('notes');
         query.find({
           success : function(results) {
             callback(results);
