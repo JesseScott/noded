@@ -51,7 +51,6 @@
                         <header>
                             <span class="item-ssid">{{ item.get('ssid') }}</span>
                         </header>
-                        <p class="item-owner">{{ item.get('owner') }}</p>
                     </ons-col>
                 </ons-row>
             </ons-list-item>
@@ -76,28 +75,19 @@
             </ons-col>
             <ons-col>
               <header>
-                <span class="item-title">{{item.title}}</span>
-                <span class="item-label">{{item.label}}</span>
+                <span class="item-ssid">{{ item.get('ssid') }}</span>
               </header>
-              <p class="item-desc">{{item.desc}}</p>
+              <p class="item-owner">{{ item.get('owner') }}</p>
             </ons-col>
           </ons-row>
         </ons-list-item>
 
-        <ons-list-item modifier="chevron" ng-click="doSomething()">
+        <ons-list-item ng-click="doSomething()">
           <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
           Add a note
         </ons-list-item>
       </ons-list>
 
-      <ons-list style="margin-top: 10px">
-        <ons-list-item class="item" ng-repeat="i in [1,2,3]">
-          <header>
-            <span class="item-title">Lorem ipsum dolor sit amet</span>
-          </header>
-          <p class="item-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </ons-list-item>
-      </ons-list>
 
       <br>
 
