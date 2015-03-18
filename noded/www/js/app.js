@@ -3,7 +3,7 @@
 
   /* APP */
 
-  var module = angular.module('app', ['onsen','ngResource', 'appServices']);
+  var module = angular.module('app', ['onsen', 'appServices']);
 
   /* CONTROLLERS */
 
