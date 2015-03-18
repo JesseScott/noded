@@ -2,9 +2,9 @@
 
 /* Services */
 
-angular.module('appServices', ['ngResource']).factory('ParseService', function($resource) {
+angular.module('service', ['ngResource']).factory('ParseService', function($resource) {
 
-    // Initialize Parse API and objects.
+    // Initialize Parse API
     Parse.initialize("BiYJKFD8IxfkHxzoTxfW4nYE3im1Jvhc6Jy2v7j8", "AtXojjwtcnc4a6WkxJZcTrq7smHEe4iRI2EKYVIw");
 
     // Cache current logged in user

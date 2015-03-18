@@ -3,7 +3,7 @@
 
   /* APP */
 
-  var module = angular.module('app', ['onsen', 'appServices']);
+  var module = angular.module('app', ['onsen', 'service']);
 
   /* CONTROLLERS */
 
@@ -13,10 +13,6 @@
         alert('tapped');
       }, 100);
     };
-  });
-
-  module.controller('DetailController', function($scope, $data) {
-    $scope.item = $data.selectedItem;
   });
 
   var MasterController = function($scope,  $data, ParseService) {
@@ -38,6 +34,9 @@
   MasterController.$inject = ['$scope', '$data', 'ParseService'];
   module.controller('MasterController', MasterController);
 
+  module.controller('DetailController', function($scope, $data) {
+    $scope.item = $data.selectedItem;
+  });
 
   /* FACTORIES */
 
