@@ -27,11 +27,14 @@
   MasterController.$inject = ['$scope', '$data', 'ParseService'];
   module.controller('MasterController', MasterController);
 
-  module.controller('DetailController', function($scope, $data) {
+  module.controller('DetailController', function($scope, $data, ParseService) {
     $scope.item = $data.selectedItem;
 
     $scope.addNote = function(note) {
-        console.log(note);
+        var obj = $scope.item;
+        ParseService.addNote(obj, note, function() {
+          //
+        });
     };
   });
 

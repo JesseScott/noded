@@ -95,10 +95,21 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Create A New Node
-      addNote : function addNote(object, message) {
-        // get notes
-        // addend note
-        // save notes
+      addNote : function addNote(_obj, _note) {
+        console.log('item is ' + _obj.id);
+        console.log('note is ' + _note);
+
+        var obj = new Node();
+        obj.id = _obj.id;
+        obj.addUnique('notes', _note);
+        obj.save(null, {
+          success: function(object) {
+            //callback(object);
+          },
+          error: function(error) {
+            alert("Error: " + error.message);
+          }
+        });
       },
 
       // Get current logged in user
