@@ -1,3 +1,72 @@
+
+/* TOOLBAR */
+
 .left {
 	text-align: left;
+}
+
+
+/* LIST ITEM */
+
+.item {
+  padding: 10px;
+  line-height: 1;
+}
+.item-thum {
+  background-color: #ccc;
+  width: 50px;
+  height: 50px;
+	overflow: hidden;
+  border-radius: 4px;
+}
+.item-ssid {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* LIST DETAIL */
+
+.detail {
+  padding: 10px;
+  line-height: 1;
+}
+.detail-table {
+
+}
+.text-input {
+	padding: 10px;
+}
+.detail-photo {
+  background-color: #ccc;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+  border-radius: 4px;
+}
+.detail-ssid {
+  font-size: 24px;
+  font-weight: 500;
+}
+.detail-pwd {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.3;
+  margin: 4px 0 0 0;
+  padding: 0 30px 0 0;
+}
+.detail-owner {
+  font-size: 12px;
+  color: #999;
+}
+
+/* TABLE */
+
+td {
+    display: block;
+    float: left;
+    padding: 10px 0;
+    margin-right:50px;
+}
+td:last-child {
+    margin-right: 0;
 }
