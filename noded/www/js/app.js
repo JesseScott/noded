@@ -79,6 +79,12 @@
           $data.selectedItem = item;
           $scope.navigator.pushPage('detail.html');
         };
+
+        $scope.goToAdd = function() {
+          console.log('to add!');
+          $scope.navigator.pushPage('add.html');
+        }
+
   }
   MasterController.$inject = ['$scope', '$data', 'ParseService'];
   module.controller('MasterController', MasterController);
@@ -93,6 +99,15 @@
         });
     };
   });
+
+  module.controller('AddController', function($scope, $data, ParseService) {
+    $scope.item = $data.selectedItem;
+
+    $scope.addNode = function() {
+
+    };
+  });
+
 
   /* FACTORIES */
 
