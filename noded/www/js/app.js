@@ -11,17 +11,34 @@
 
   });
 
-  var MasterController = function($scope, $data, ParseService) {
-        // ParseService.getNodes(function(results) {
-        //   $scope.$apply(function() {
-        //     $scope.items = results;
-        //   });
-        // });
+  module.controller('SignupController', function($scope) {
+      $scope.goToLogin = function() {
+        console.log('to login!');
+        $scope.navigator.pushPage('login.html');
+      }
+  });
 
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady(){
-          alert("PhoneGap is ready.");
-        }
+  module.controller('LoginController', function($scope) {
+    $scope.goToSignup = function() {
+      console.log('to signup!');
+      $scope.navigator.popPage();
+    }
+    $scope.forgotPwd = function() {
+      alert('this still needs to be coded');
+    }
+  });
+
+  var MasterController = function($scope, $data, ParseService) {
+        ParseService.getNodes(function(results) {
+          $scope.$apply(function() {
+            $scope.items = results;
+          });
+        });
+
+        // document.addEventListener("deviceready", onDeviceReady, false);
+        // function onDeviceReady(){
+        //   alert("PhoneGap is ready.");
+        // }
 
         // geolocation.getCurrentPosition(function (position) {
         //   alert('Latitude: '              + position.coords.latitude          + '\n' +
