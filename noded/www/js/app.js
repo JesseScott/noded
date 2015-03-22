@@ -12,10 +12,19 @@
   });
 
   module.controller('SignupController', function($scope, ParseService) {
+
       $scope.goToLogin = function() {
         console.log('to login!');
         $scope.navigator.pushPage('login.html');
       }
+
+      $scope.signup = function() {
+        alert('trying to signup!');
+        ParseService.signUp($scope.signup_username, $scope.signup_password, $scope.signup_email, function(user) {
+          alert('really signed up !!!');
+        });
+      }
+
   });
 
   module.controller('LoginController', function($scope, ParseService) {
@@ -30,7 +39,7 @@
     }
 
     $scope.login = function() {
-      alert('login!');
+      console.log('trying to login!');
       ParseService.login($scope.login_username, $scope.login_password, function(user) {
         alert('really logged in !!!');
       });

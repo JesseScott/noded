@@ -32,9 +32,10 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Register a user
-      signUp : function signUp(username, password, callback) {
+      signUp : function signUp(username, password, email, callback) {
       	Parse.User.signUp(username, password, { ACL: new Parse.ACL() }, {
             success: function(user) {
+                user.set("email", email);
                 loggedInUser = user;
                 callback(user);
             },
