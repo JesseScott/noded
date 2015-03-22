@@ -70,7 +70,7 @@ td:last-child {
   margin: 60px auto 0;
 }
 
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text] {
   display: block;
   width: 100%;
   margin: 0 auto;

@@ -7,15 +7,16 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
     // Initialize Parse API
     Parse.initialize("BiYJKFD8IxfkHxzoTxfW4nYE3im1Jvhc6Jy2v7j8", "AtXojjwtcnc4a6WkxJZcTrq7smHEe4iRI2EKYVIw");
 
-    // Cache current logged in user
+    // Cache Current User
     var loggedInUser;
 
-    // Define parse model and collection for Book records
+    // Define Parse Model
     var Node = Parse.Object.extend("Node");
-    var NodeCollection = Parse.Collection.extend({ model:Node });
 
     var ParseService = {
       name: "Parse",
+
+      /* USERS */
 
       // Login a user
       login : function login(username, password, callback) {
@@ -30,24 +31,6 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         });
       },
 
-      // Login a user using Facebook
-      FB_login : function FB_login(callback) {
-        Parse.FacebookUtils.logIn(null, {
-          success: function(user) {
-            if (!user.existed()) {
-              alert("User signed up and logged in through Facebook!");
-            } else {
-              alert("User logged in through Facebook!");
-            }
-            loggedInUser = user;
-            callback(user);
-          },
-          error: function(user, error) {
-            alert("User cancelled the Facebook login or did not fully authorize.");
-          }
-        });
-      },
-
       // Register a user
       signUp : function signUp(username, password, callback) {
       	Parse.User.signUp(username, password, { ACL: new Parse.ACL() }, {
@@ -55,17 +38,26 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
                 loggedInUser = user;
                 callback(user);
             },
-
             error: function(user, error) {
               alert("Error: " + error.message);
             }
         });
       },
 
+      // Get current logged in user
+      getUser : function getUser() {
+        if(loggedInUser) {
+          return loggedInUser;
+        }
+      },
+
       // Logout current user
       logout : function logout(callback) {
         Parse.User.logOut();
       },
+
+
+      /* QUERIES */
 
       // Get All Nodes
       getNodes : function getNodes(callback) {
@@ -111,13 +103,6 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
           }
         });
       },
-
-      // Get current logged in user
-      getUser : function getUser() {
-        if(loggedInUser) {
-          return loggedInUser;
-        }
-      }
 
     };
 

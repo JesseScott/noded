@@ -11,21 +11,31 @@
 
   });
 
-  module.controller('SignupController', function($scope) {
+  module.controller('SignupController', function($scope, ParseService) {
       $scope.goToLogin = function() {
         console.log('to login!');
         $scope.navigator.pushPage('login.html');
       }
   });
 
-  module.controller('LoginController', function($scope) {
+  module.controller('LoginController', function($scope, ParseService) {
+
     $scope.goToSignup = function() {
       console.log('to signup!');
       $scope.navigator.popPage();
     }
+
     $scope.forgotPwd = function() {
       alert('this still needs to be coded');
     }
+
+    $scope.login = function() {
+      alert('login!');
+      ParseService.login($scope.login_username, $scope.login_password, function(user) {
+        alert('really logged in !!!');
+      });
+    }
+
   });
 
   var MasterController = function($scope, $data, ParseService) {
