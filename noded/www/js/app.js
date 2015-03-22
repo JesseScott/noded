@@ -13,6 +13,11 @@
 
   module.controller('SignupController', function($scope, ParseService) {
 
+      var user = ParseService.getUser();
+      if(user) {
+        console.log( user.getUsername() );
+      }
+
       $scope.goToLogin = function() {
         console.log('to login!');
         $scope.navigator.pushPage('login.html');
@@ -21,7 +26,8 @@
       $scope.signup = function() {
         alert('trying to signup!');
         ParseService.signUp($scope.signup_username, $scope.signup_password, $scope.signup_email, function(user) {
-          alert('really signed up !!!');
+          console.log('really signed up !!!');
+          $scope.navigator.pushPage("master.html");
         });
       }
 
@@ -41,7 +47,8 @@
     $scope.login = function() {
       console.log('trying to login!');
       ParseService.login($scope.login_username, $scope.login_password, function(user) {
-        alert('really logged in !!!');
+        console.log('really logged in !!!');
+        $scope.navigator.pushPage("master.html");
       });
     }
 
@@ -70,7 +77,7 @@
         $scope.showDetail = function(index) {
           var item = $scope.items[index];
           $data.selectedItem = item;
-          $scope.navigator.pushPage('detail.html', {title : item.get('ssid')});
+          $scope.navigator.pushPage('detail.html');
         };
   }
   MasterController.$inject = ['$scope', '$data', 'ParseService'];
