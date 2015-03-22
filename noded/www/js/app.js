@@ -20,7 +20,7 @@
 
       $scope.goToLogin = function() {
         console.log('to login!');
-        $scope.navigator.pushPage('login.html');
+        $scope.navigator.popPage();
       }
 
       $scope.signup = function() {
@@ -37,7 +37,7 @@
 
     $scope.goToSignup = function() {
       console.log('to signup!');
-      $scope.navigator.popPage();
+      $scope.navigator.pushPage('signup.html');
     }
 
     $scope.forgotPwd = function() {
