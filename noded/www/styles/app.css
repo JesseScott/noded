@@ -62,6 +62,20 @@ td:last-child {
     margin-right: 0;
 }
 
+/* ADD */
+
+.add-form {
+  text-align: center;
+  width: 80%;
+  margin: 60px auto 0;
+}
+
+.add-button {
+  width: 100%;
+  margin: 0 auto;
+	padding: 10px;
+}
+
 /* LOGIN + SIGNUP */
 
 .login-form {
