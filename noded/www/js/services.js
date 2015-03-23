@@ -74,7 +74,7 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Create A New Node
-      addNode : function addNode(_ssid, _pwd, _biz, _sec, _nts, _usr, _loc, _img) {
+      addNode : function addNode(_ssid, _pwd, _biz, _sec, _nts, _usr, _loc, _img, callback) {
 
         if(_ssid == null || _pwd == null || _biz == null || _sec == null) {
             alert('please fill in all fields');
@@ -83,9 +83,21 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
 
         if(_nts == null) _nts == "";
         var _ntsArray = [_nts];
-        if(_loc == null) _loc = {latitude: 0.0, longitude: 0.0};
-        if(_img == null) _img = new Image(); _img.src = "img/foo.jpg"; // sketchy
+
+        if(_loc == null) {
+          _loc = new Parse.GeoPoint(0.0, 0.0);
+        }
+
+        /*
+        var img;
+        if(_img == null) {
+          img = new Image();
+          img.src = "img/foo.jpg"; // sketchy
+          _img = img;
+          //console.log(img);
+        }
         var parseFile = new Parse.File("image.jpg", _img);
+        //console.log(parseFile);
         parseFile.save().then(
         function() {
           console.log('File Saved...');
@@ -93,8 +105,8 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         },
         function(error) {
           console.log('File Error: ' + error.code);
-      });
-
+        });
+        */
         console.log('NET: ' + _ssid);
         console.log('PWD: ' + _pwd);
         console.log('BIZ: ' + _biz);
@@ -111,8 +123,8 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
           security:_sec,
           notes:_ntsArray,
           addedBy:_usr,
-          point:_loc,
-          thumbnail:parseFile // ERROR
+          point:_loc/*,
+          thumbnail:parseFile // ERROR*/
         };
 
         var object = new Node();

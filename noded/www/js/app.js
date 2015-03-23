@@ -52,6 +52,7 @@
 
   var MasterController = function($scope, $data, ParseService) {
         ParseService.getNodes(function(results) {
+          console.log('get');
           $scope.$apply(function() {
             $scope.items = results;
           });
