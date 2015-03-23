@@ -19,14 +19,12 @@
       }
 
       $scope.goToLogin = function() {
-        console.log('to login!');
         $scope.navigator.popPage();
       }
 
       $scope.signup = function() {
-        alert('trying to signup!');
         ParseService.signUp($scope.signup_username, $scope.signup_password, $scope.signup_email, function(user) {
-          console.log('really signed up !!!');
+          console.log('signed up !!!');
           $scope.navigator.pushPage("master.html");
         });
       }
@@ -36,7 +34,6 @@
   module.controller('LoginController', function($scope, ParseService) {
 
     $scope.goToSignup = function() {
-      console.log('to signup!');
       $scope.navigator.pushPage('signup.html');
     }
 
@@ -45,9 +42,8 @@
     }
 
     $scope.login = function() {
-      console.log('trying to login!');
       ParseService.login($scope.login_username, $scope.login_password, function(user) {
-        console.log('really logged in !!!');
+        console.log('logged in !!!');
         $scope.navigator.pushPage("master.html");
       });
     }
@@ -101,9 +97,18 @@
   });
 
   module.controller('AddController', function($scope, $data, ParseService) {
-    $scope.item = $data.selectedItem;
 
     $scope.addNode = function() {
+        var user = ParseService.getUser();
+
+        ParseService.addNode(
+          $scope.add_network, $scope.add_password, $scope.add_business,
+          $scope.add_security, $scope.add_notes, ParseService.getUser(),
+          $scope.add_location, $scope.add_photo, function() {
+            console.log('adding a node');
+            alert('successfully added');
+            $scope.navigator.popPage();
+        });
 
     };
   });

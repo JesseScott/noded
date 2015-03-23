@@ -63,7 +63,6 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       // Get All Nodes
       getNodes : function getNodes(callback) {
         var query = new Parse.Query(Node);
-        //query.include('notes');
         query.find({
           success : function(results) {
             callback(results);
@@ -75,9 +74,27 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Create A New Node
-      addNode : function addNode(_ssid, _password, _owner, _location, _mac, _image, callback) {
+      addNode : function addNode(_ssid, _pwd, _biz, _sec, _nts, _usr, _loc, _img) {
+
+        if(_ssid == null || _pwd == null || _biz == null || _sec == null) {
+            alert('please fill in all fields');
+            return;
+        }
+
+        if(_nts == null) _nts == " ";
+        var _ntsArray = [_nts];
+
+        console.log('NET: ' + _ssid);
+        console.log('PWD: ' + _pwd);
+        console.log('BIZ: ' + _biz);
+        console.log('SEC: ' + _sec);
+        console.log('NTS: ' + _nts);
+        console.log('USR: ' + _usr);
+        console.log('LOC: ' + _loc);
+        console.log('IMG: ' + _img);
+
         var object = new Node();
-        object.save({ssid:_ssid, password:_password, owner:_owner, point:_location, mac:_mac, thumbnail:_image}, {
+        object.save({ssid:_ssid, password:_pwd, owner:_biz, security:_sec, notes:_ntsArray, addedBy:_usr /*, point:_loc, thumbnail:_img*/}, {
           success: function(object) {
             callback();
           },
@@ -96,7 +113,7 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         obj.id = _obj.id;
         obj.addUnique('notes', _note);
         obj.save(null, {
-          success: function(object) {
+          success: function() {
             //callback(object);
           },
           error: function(error) {
