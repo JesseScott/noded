@@ -104,8 +104,7 @@
         ParseService.addNode(
           $scope.add_network, $scope.add_password, $scope.add_business,
           $scope.add_security, $scope.add_notes, ParseService.getUser(),
-          $scope.add_location, $scope.add_photo, function() {
-            console.log('adding a node');
+          $scope.add_location, $scope.add_photo, function(object) {
             alert('successfully added');
             $scope.navigator.popPage();
         });

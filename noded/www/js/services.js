@@ -81,8 +81,19 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
             return;
         }
 
-        if(_nts == null) _nts == " ";
+        if(_nts == null) _nts == "";
         var _ntsArray = [_nts];
+        if(_loc == null) _loc = {latitude: 0.0, longitude: 0.0};
+        if(_img == null) _img = new Image(); _img.src = "img/foo.jpg"; // sketchy
+        var parseFile = new Parse.File("image.jpg", _img);
+        parseFile.save().then(
+        function() {
+          console.log('File Saved...');
+          //supposed to call Object save here ???
+        },
+        function(error) {
+          console.log('File Error: ' + error.code);
+      });
 
         console.log('NET: ' + _ssid);
         console.log('PWD: ' + _pwd);
@@ -93,8 +104,19 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         console.log('LOC: ' + _loc);
         console.log('IMG: ' + _img);
 
+        var params = {
+          ssid:_ssid,
+          password:_pwd,
+          owner:_biz,
+          security:_sec,
+          notes:_ntsArray,
+          addedBy:_usr,
+          point:_loc,
+          thumbnail:parseFile // ERROR
+        };
+
         var object = new Node();
-        object.save({ssid:_ssid, password:_pwd, owner:_biz, security:_sec, notes:_ntsArray, addedBy:_usr /*, point:_loc, thumbnail:_img*/}, {
+        object.save(params, {
           success: function(object) {
             callback();
           },
