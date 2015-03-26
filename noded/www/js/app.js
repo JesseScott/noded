@@ -91,8 +91,8 @@
 
     $scope.favouriteNode = function() {
         console.log('fave');
-        ParseService.favouriteNode($scope.item, function() {
-          //
+        ParseService.favouriteNode($scope.item, function(object) {
+          alert('node added to faves!');
         });
     };
 

@@ -10,8 +10,9 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
     // Cache Current User
     var loggedInUser;
 
-    // Define Parse Model
+    // Define Parse Models
     var Node = Parse.Object.extend("Node");
+    var Fave = Parse.Object.extend("Fave");
 
     var ParseService = {
       name: "Parse",
@@ -139,19 +140,24 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Add Favourite
-      favouriteNode : function favouriteNode(_obj) {
-        console.log('item is ' + _obj.id);
+      favouriteNode : function favouriteNode(_node, callback) {
+        console.log('node is ' + _node.id);
 
-        // var obj = new Node();
-        // obj.id = _obj.id;
-        // obj.save(null, {
-        //   success: function(obj) {
-        //     //callback(obj);
-        //   },
-        //   error: function(error) {
-        //     alert("Error: " + error.message);
-        //   }
-        // });
+        var params = {
+          Node:_node,
+          User:loggedInUser
+        };
+
+        var obj = new Fave();
+        obj.save(params, {
+          success: function(obj) {
+            console.log('faved!');
+            callback(obj);
+          },
+          error: function(error) {
+            alert("Error: " + error.message);
+          }
+        });
       },
 
       // Update
