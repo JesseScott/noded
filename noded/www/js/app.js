@@ -99,14 +99,14 @@
     $scope.updateNode = function(update) {
         console.log('update');
         ParseService.updateNode($scope.item, update, function() {
-          //
+          alert('node updated!);
         });
     };
 
     $scope.commentNode = function(comment) {
         console.log('comment');
         ParseService.commentNode($scope.item, comment, function() {
-          //
+          alert('comment added!');
         });
     };
 
