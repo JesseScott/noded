@@ -8,7 +8,7 @@
   /* CONTROLLERS */
 
   module.controller('AppController', function($scope) {
-
+      $scope.hideTabs = true;
   });
 
   module.controller('SignupController', function($scope, ParseService) {
@@ -51,6 +51,7 @@
   });
 
   var MasterController = function($scope, $data, ParseService) {
+        $scope.hideTabs = false;
         ParseService.getNodes(function(results) {
           $scope.$apply(function() {
             $scope.items = results;
