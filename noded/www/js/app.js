@@ -89,12 +89,27 @@
   module.controller('DetailController', function($scope, $data, ParseService) {
     $scope.item = $data.selectedItem;
 
-    $scope.addNote = function(note) {
-        var obj = $scope.item;
-        ParseService.addNote(obj, note, function() {
+    $scope.favouriteNode = function() {
+        console.log('fave');
+        ParseService.favouriteNode($scope.item, function() {
           //
         });
     };
+
+    $scope.updateNode = function(update) {
+        console.log('update');
+        ParseService.updateNode($scope.item, update, function() {
+          //
+        });
+    };
+
+    $scope.commentNode = function(comment) {
+        console.log('comment');
+        ParseService.commentNode($scope.item, comment, function() {
+          //
+        });
+    };
+
   });
 
   module.controller('AddController', function($scope, $data, ParseService) {

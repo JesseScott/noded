@@ -138,15 +138,15 @@
 
         <ons-list-item>
              <ons-row>
-               <ons-col class="action-col">
+               <ons-col class="action-col" ng-click="favouriteNode()">
                  <div class="action-icon"><ons-icon icon="ion-bookmark"></ons-icon></div>
                  <div class="action-label">Favorite</div>
                </ons-col>
-               <ons-col class="action-col">
+               <ons-col class="action-col" ng-click="updateNode('update')">
                  <div class="action-icon"><ons-icon icon="ion-compose"></ons-icon></div>
                  <div class="action-label">Update</div>
                </ons-col>
-               <ons-col class="action-col">
+               <ons-col class="action-col" ng-click="commentNode('comment')">
                  <div class="action-icon"><ons-icon icon="ion-chatboxes"></ons-icon></div>
                  <div class="action-label">Comment</div>
                </ons-col>
@@ -154,47 +154,34 @@
         </ons-list-item>
 
         <ons-list-item>
-            <ons-row>
-                <ons-col>
-                  <table class="detail-table">
-                    <tr>
-                      <tr>
-                        <th>BUSINESS</th>
-                        <td></td>
-                        <td>{{ item.get('owner') }}</td>
-                      </tr>
-                      <th>NETWORK</th>
-                      <td></td>
-                      <td>{{ item.get('ssid') }}</td>
-                    </tr>
-                    <tr>
-                      <th>PASSWORD</th>
-                      <td></td>
-                      <td>{{ item.get('password') }}</td>
-                    </tr>
-                    <tr>
-                      <th>SECURITY</th>
-                      <td></td>
-                      <td>{{ item.get('security') }}</td>
-                    </tr>
-                    <tr>
-                      <th>LOCATION</th>
-                      <td></td>
-                      <td>{{ item.get('point').latitude }}, + '\n' + {{ item.get('point').longitude }}</td>
-                    </tr>
-                    <tr>
-                      <th>UPDATED</th>
-                      <td></td>
-                      <td>{{ item.updatedAt.toDateString() }}</td>
-                    </tr>
-                    <tr>
-                      <th>NOTES</th>
-                      <td></td>
-                      <td>{{ item.get('notes')  + " "}}</td>
-                    </tr>
-                </table>
-                </ons-col>
-            </ons-row>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">BUSINESS:</div>
+              <div class="detail-right">{{ item.get('owner') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">NETWORK:</div>
+              <div class="detail-right">{{ item.get('ssid') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">PASSWORD:</div>
+              <div class="detail-right">{{ item.get('password') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">SECURITY:</div>
+              <div class="detail-right">{{ item.get('security') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">LOCATION:</div>
+              <div class="detail-right">{{ item.get('point').latitude }}, {{ item.get('point').longitude }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">UPDATED:</div>
+              <div class="detail-right">{{ item.updatedAt.toDateString() }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">NOTES:</div>
+              <div class="detail-right">{{ item.get('notes')  + " " }}
+            </li>
         </ons-list-item>
 
         <ons-list-item>

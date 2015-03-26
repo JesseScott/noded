@@ -138,8 +138,41 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         });
       },
 
-      // Create A New Node
-      addNote : function addNote(_obj, _note) {
+      // Add Favourite
+      favouriteNode : function favouriteNode(_obj) {
+        console.log('item is ' + _obj.id);
+
+        // var obj = new Node();
+        // obj.id = _obj.id;
+        // obj.save(null, {
+        //   success: function(obj) {
+        //     //callback(obj);
+        //   },
+        //   error: function(error) {
+        //     alert("Error: " + error.message);
+        //   }
+        // });
+      },
+
+      // Update
+      updateNode : function updateNode(_obj, _update) {
+        console.log('item is ' + _obj.id);
+        console.log('update is ' + _update);
+
+        // var obj = new Node();
+        // obj.id = _obj.id;
+        // obj.save(null, {
+        //   success: function(obj) {
+        //     //callback(obj);
+        //   },
+        //   error: function(error) {
+        //     alert("Error: " + error.message);
+        //   }
+        // });
+      },
+
+      // Add Comment
+      commentNode : function commentNode(_obj, _note) {
         console.log('item is ' + _obj.id);
         console.log('note is ' + _note);
 
