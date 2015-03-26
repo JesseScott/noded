@@ -77,6 +77,14 @@
 
   </ons-navigator>
 
+<!--
+  <ons-tabbar hide-tabs="{{hideTabs}}">
+    <ons-tab page="master.html" icon="ion-search" label="Find a place" active="true">
+    </ons-tab>
+    <ons-tab page="faves.html" icon="ion-heart" label="Favorites">
+    </ons-tab>
+  </ons-tabbar>
+-->
 
   <ons-template id="master.html">
       <ons-page ng-controller="MasterController">
@@ -113,10 +121,11 @@
 
       <ons-toolbar>
         <div class="left"><ons-back-button></ons-back-button></div>
-        <div class="center">{{ item.get('ssid') }}</div>
+        <div class="center">{{ item.get('ssid').toUpperCase() }}</div>
       </ons-toolbar>
 
       <ons-list modifier="inset" style="margin-top: 10px">
+
         <ons-list-item class="detail">
             <ons-row>
                 <ons-col class="detail-col">
@@ -187,11 +196,12 @@
                 </ons-col>
             </ons-row>
         </ons-list-item>
+
         <ons-list-item>
-          <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
           <input type="text" class="text-input" placeholder="text" value="" ng-model="note">
           <button class="button button--light" ng-click="addNote(note)">submit</button>
         </ons-list-item>
+
       </ons-list>
 
     </ons-page>
@@ -223,6 +233,10 @@
         </div>
 
     </ons-page>
+  </ons-template>
+
+
+  <ons-template id="faves.html">
   </ons-template>
 
 </body>
