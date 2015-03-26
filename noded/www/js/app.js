@@ -52,7 +52,6 @@
 
   var MasterController = function($scope, $data, ParseService) {
         ParseService.getNodes(function(results) {
-          console.log('get');
           $scope.$apply(function() {
             $scope.items = results;
           });
@@ -100,8 +99,6 @@
   module.controller('AddController', function($scope, $data, ParseService) {
 
     $scope.addNode = function() {
-        var user = ParseService.getUser();
-
         ParseService.addNode(
           $scope.add_network, $scope.add_password, $scope.add_business,
           $scope.add_security, $scope.add_notes, ParseService.getUser(),
@@ -109,8 +106,8 @@
             alert('successfully added');
             $scope.navigator.popPage();
         });
-
     };
+
   });
 
 

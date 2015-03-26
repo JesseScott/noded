@@ -147,8 +147,8 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         obj.id = _obj.id;
         obj.addUnique('notes', _note);
         obj.save(null, {
-          success: function() {
-            //callback(object);
+          success: function(obj) {
+            //callback(obj);
           },
           error: function(error) {
             alert("Error: " + error.message);
