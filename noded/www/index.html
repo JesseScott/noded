@@ -108,6 +108,7 @@
                           <header>
                               <span class="item-ssid">{{ item.get('ssid') }}</span>
                           </header>
+                          <p class="item-owner">{{ item.get('owner') }}</p>
                       </ons-col>
                   </ons-row>
               </ons-list-item>
@@ -146,9 +147,9 @@
                  <div class="action-icon"><ons-icon icon="ion-compose"></ons-icon></div>
                  <div class="action-label">Update</div>
                </ons-col>
-               <ons-col class="action-col" ng-click="commentNode('comment')">
-                 <div class="action-icon"><ons-icon icon="ion-chatboxes"></ons-icon></div>
-                 <div class="action-label">Comment</div>
+               <ons-col class="action-col" ng-click="navigateNode('comment')">
+                 <div class="action-icon"><ons-icon icon="ion-map"></ons-icon></div>
+                 <div class="action-label">Navigate</div>
                </ons-col>
              </ons-row>
         </ons-list-item>
@@ -170,10 +171,10 @@
               <div class="detail-left">SECURITY:</div>
               <div class="detail-right">{{ item.get('security') }}
             </li>
-            <li class="list__item list__item--tappable">
+            <!-- <li class="list__item list__item--tappable">
               <div class="detail-left">LOCATION:</div>
               <div class="detail-right">{{ item.get('point').latitude }}, {{ item.get('point').longitude }}
-            </li>
+            </li> -->
             <li class="list__item list__item--tappable">
               <div class="detail-left">UPDATED:</div>
               <div class="detail-right">{{ item.updatedAt.toDateString() }}
@@ -185,8 +186,8 @@
         </ons-list-item>
 
         <ons-list-item>
-          <input type="text" class="text-input" placeholder="text" value="" ng-model="note">
-          <button class="button button--light" ng-click="addNote(note)">submit</button>
+          <input type="text" class="text-input" placeholder="add a note" value="" ng-model="note">
+          <ons-button class="detail-button" ng-click="commentNode(note)">submit</ons-button>
         </ons-list-item>
 
       </ons-list>
@@ -224,6 +225,9 @@
 
 
   <ons-template id="faves.html">
+  </ons-template>
+
+  <ons-template id="nav.html">
   </ons-template>
 
 </body>

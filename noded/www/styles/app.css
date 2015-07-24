@@ -49,11 +49,17 @@
 	padding: 10px;
 	line-height: 1;
 	float: left;
+	font-weight: bold;
 }
 .detail-right {
 	padding: 10px;
 	line-height: 1;
 	float: right;
+}
+.detail-button {
+  width: 50%;
+  margin: 0 auto;
+	padding: 10px;
 }
 .action-col {
   text-align: center;

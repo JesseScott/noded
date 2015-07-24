@@ -48,9 +48,10 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
 
       // Get current logged in user
       getUser : function getUser() {
-        if(loggedInUser) {
-          return loggedInUser;
-        }
+        // if(loggedInUser) {
+        //   return loggedInUser;
+        // }
+        return Parse.User.current();
       },
 
       // Logout current user

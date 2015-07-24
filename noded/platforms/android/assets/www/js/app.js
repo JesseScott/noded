@@ -7,16 +7,12 @@
 
   /* CONTROLLERS */
 
-  module.controller('AppController', function($scope) {
+  module.controller('AppController', function($scope, ParseService) {
       $scope.hideTabs = true;
+      $scope.currentUser = ParseService.getUser();
   });
 
   module.controller('SignupController', function($scope, ParseService) {
-
-      var user = ParseService.getUser();
-      if(user) {
-        console.log( user.getUsername() );
-      }
 
       $scope.goToLogin = function() {
         $scope.navigator.popPage();
@@ -32,6 +28,18 @@
   });
 
   module.controller('LoginController', function($scope, ParseService) {
+
+    var init = function () {
+      if($scope.currentUser) {
+        console.log("USER: " + $scope.currentUser.getUsername() );
+        console.log('logged in !!!');
+        $scope.navigator.pushPage("master.html");
+      }
+      else {
+        console.log("NO USER ");
+      }
+    };
+    init();
 
     $scope.goToSignup = function() {
       $scope.navigator.pushPage('signup.html');

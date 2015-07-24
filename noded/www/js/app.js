@@ -106,14 +106,19 @@
 
     $scope.updateNode = function(update) {
         console.log('update');
-        ParseService.updateNode($scope.item, update, function() {
+        ParseService.updateNode($scope.item, update, function(object) {
           alert('node updated!');
         });
     };
 
+    $scope.navigateNode = function(location) {
+        console.log('navigate');
+        $scope.navigator.pushPage('nav.html');
+    };
+
     $scope.commentNode = function(comment) {
         console.log('comment');
-        ParseService.commentNode($scope.item, comment, function() {
+        ParseService.commentNode($scope.item, comment, function(object) {
           alert('comment added!');
         });
     };
