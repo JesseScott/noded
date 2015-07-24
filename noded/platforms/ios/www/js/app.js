@@ -1,56 +1,186 @@
 (function(){
   'use strict';
-  var module = angular.module('app', ['onsen']);
 
-  module.controller('AppController', function($scope, $data) {
-    $scope.doSomething = function() {
-      setTimeout(function() {
-        alert('tappaed');
-      }, 100);
-    };
+  /* APP */
+
+  var module = angular.module('app', ['onsen', 'service']);
+
+  /* CONTROLLERS */
+
+  module.controller('AppController', function($scope) {
+      $scope.hideTabs = true;
   });
 
-  module.controller('DetailController', function($scope, $data) {
+  module.controller('SignupController', function($scope, ParseService) {
+
+      var user = ParseService.getUser();
+      if(user) {
+        console.log( user.getUsername() );
+      }
+
+      $scope.goToLogin = function() {
+        $scope.navigator.popPage();
+      }
+
+      $scope.signup = function() {
+        ParseService.signUp($scope.signup_username, $scope.signup_password, $scope.signup_email, function(user) {
+          console.log('signed up !!!');
+          $scope.navigator.pushPage("master.html");
+        });
+      }
+
+  });
+
+  module.controller('LoginController', function($scope, ParseService) {
+
+    $scope.goToSignup = function() {
+      $scope.navigator.pushPage('signup.html');
+    }
+
+    $scope.forgotPwd = function() {
+      alert('this still needs to be coded');
+    }
+
+    $scope.login = function() {
+      ParseService.login($scope.login_username, $scope.login_password, function(user) {
+        console.log('logged in !!!');
+        $scope.navigator.pushPage("master.html");
+      });
+    }
+
+  });
+
+  var MasterController = function($scope, $data, ParseService) {
+        $scope.hideTabs = false;
+        ParseService.getNodes(function(results) {
+          $scope.$apply(function() {
+            $scope.items = results;
+          });
+        });
+
+        // document.addEventListener("deviceready", onDeviceReady, false);
+        // function onDeviceReady(){
+        //   alert("PhoneGap is ready.");
+        // }
+
+        // geolocation.getCurrentPosition(function (position) {
+        //   alert('Latitude: '              + position.coords.latitude          + '\n' +
+        //         'Longitude: '             + position.coords.longitude         + '\n' +
+        //         'Altitude: '              + position.coords.altitude          + '\n' +
+        //         'Timestamp: '             + position.timestamp                + '\n'
+        //         );
+        // });
+
+        $scope.showDetail = function(index) {
+          var item = $scope.items[index];
+          $data.selectedItem = item;
+          $scope.navigator.pushPage('detail.html');
+        };
+
+        $scope.goToAdd = function() {
+          console.log('to add!');
+          $scope.navigator.pushPage('add.html');
+        }
+
+  }
+  MasterController.$inject = ['$scope', '$data', 'ParseService'];
+  module.controller('MasterController', MasterController);
+
+  module.controller('DetailController', function($scope, $data, ParseService) {
     $scope.item = $data.selectedItem;
+
+    $scope.favouriteNode = function() {
+        console.log('fave');
+        ParseService.favouriteNode($scope.item, function(object) {
+          alert('node added to faves!');
+        });
+    };
+
+    $scope.updateNode = function(update) {
+        console.log('update');
+        ParseService.updateNode($scope.item, update, function() {
+          alert('node updated!);
+        });
+    };
+
+    $scope.commentNode = function(comment) {
+        console.log('comment');
+        ParseService.commentNode($scope.item, comment, function() {
+          alert('comment added!');
+        });
+    };
+
   });
 
-  module.controller('MasterController', function($scope, $data) {
-    $scope.items = $data.items;  
-    
-    $scope.showDetail = function(index) {
-      var selectedItem = $data.items[index];
-      $data.selectedItem = selectedItem;
-      $scope.navi.pushPage('detail.html', {title : selectedItem.title});
+  module.controller('AddController', function($scope, $data, ParseService) {
+
+    $scope.addNode = function() {
+        ParseService.addNode(
+          $scope.add_network, $scope.add_password, $scope.add_business,
+          $scope.add_security, $scope.add_notes, ParseService.getUser(),
+          $scope.add_location, $scope.add_photo, function(object) {
+            alert('successfully added');
+            $scope.navigator.popPage();
+        });
     };
+
   });
+
+
+  /* FACTORIES */
 
   module.factory('$data', function() {
       var data = {};
-      
-      data.items = [
-          { 
-              title: 'Item 1 Title',
-              label: '4h',
-              desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-          },
-          { 
-              title: 'Another Item Title',
-              label: '6h',
-              desc: 'Ut enim ad minim veniam.'
-          },
-          { 
-              title: 'Yet Another Item Title',
-              label: '1day ago',
-              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-          },
-          { 
-              title: 'Yet Another Item Title',
-              label: '1day ago',
-              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-          }
-      ]; 
-      
       return data;
   });
-})();
 
+
+  module.factory('geolocation', function ($rootScope, cordovaReady) {
+    return {
+        getCurrentPosition: cordovaReady(function (onSuccess, onError, options) {
+          navigator.geolocation.getCurrentPosition(function () {
+            var that = this,
+              args = arguments;
+
+            if (onSuccess) {
+              $rootScope.$apply(function () {
+                onSuccess.apply(that, args);
+              });
+            }
+          }, function () {
+            var that = this,
+              args = arguments;
+
+            if (onError) {
+              $rootScope.$apply(function () {
+                onError.apply(that, args);
+              });
+            }
+          },
+          options);
+        })
+      };
+  });
+
+  module.factory('cordovaReady', function() {
+    return function (fn) {
+      var queue = [];
+      var impl = function () {
+        queue.push(Array.prototype.slice.call(arguments));
+      };
+      document.addEventListener('deviceready', function () {
+        queue.forEach(function (args) {
+          fn.apply(this, args);
+        });
+        impl = fn;
+      }, false);
+      return function () {
+        return impl.apply(this, arguments);
+      };
+    };
+  });
+
+
+
+
+})();

@@ -1,126 +1,230 @@
 <!doctype html>
 <html lang="en" ng-app="app">
 <head>
+
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
 
-  <title>My App</title>  
-  
-  <link rel="stylesheet" href="lib/onsen/css/onsenui.css">  
-  <link rel="stylesheet" href="styles/app.css"/>
-  <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css">  
+  <title>noded</title>
 
-  <script src="lib/onsen/js/angular/angular.js"></script>    
-  <script src="lib/onsen/js/onsenui.js"></script>    
-  
-  <script src="cordova.js"></script>  
-  <script src="js/app.js"></script>  
+  <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+  <link rel="stylesheet" href="styles/onsen-css-components-sunshine-theme.css">
+  <link rel="stylesheet" href="styles/app.css"/>
+
+  <script src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+  <script src="lib/onsen/js/angular/angular.js"></script>
+  <script src="lib/onsen/js/angular/angular-resource.js"></script>
+  <script src="lib/onsen/js/onsenui.js"></script>
+
+  <!--<script src="cordova.js"></script>-->
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
   <script>
     ons.ready(function() {
+      //alert("Onsen is ready.");
     });
   </script>
+  <script type="text/javascript">
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady(){
+      //alert("PhoneGap is ready.");
+    }
+  </script>
 
-  <style>
-    .item {
-      padding: 10px;
-      line-height: 1;
-    }
-    .item-thum {
-      background-color: #ccc;
-      width: 50px;
-      height: 50px;
-      border-radius: 4px;
-    }
-    .item-title {
-      font-size: 15px;
-      font-weight: 500;
-    }
-    .item-desc {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.3;
-      margin: 4px 0 0 0;
-      padding: 0 30px 0 0;
-    }
-    .item-label {
-      font-size: 12px;
-      color: #999;
-      float: right;
-    }
-  </style>
 </head>
 
-<body ng-controller="AppController">    
+<body ng-controller="AppController">
 
-  <ons-navigator var="navi">
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">Master Details</div>
-      </ons-toolbar>
+  <ons-navigator var="navigator">
 
-      <ons-list ng-controller="MasterController">
-        <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
-          <ons-row>
-            <ons-col width="60px"> 
-              <div class="item-thum"></div>
-            </ons-col>
-            <ons-col>
-              <header>
-                <span class="item-title">{{item.title}}</span>
-                <span class="item-label">{{item.label}}</span>
-              </header>
-              <p class="item-desc">{{item.desc}}</p>
-            </ons-col>
-          </ons-row>                          
-        </ons-list-item>
-      </ons-list>
-    </ons-page>
+      <ons-page ng-controller="LoginController">
+          <ons-toolbar>
+              <div class="right"><ons-toolbar-button ng-click="goToSignup()">Signup</ons-toolbar-button></div>
+              <div class="center">Login</div>
+          </ons-toolbar>
+
+          <div class="login-form">
+              <input type="text" class="text-input--underbar" placeholder="Username" value="" ng-model="login_username">
+              <input type="password" class="text-input--underbar" placeholder="Password" value="" ng-model="login_password">
+
+              <br><br>
+              <ons-button modifier="large" class="login-button" ng-click="login()">Log In</ons-button>
+              <br><br>
+              <ons-button modifier="quiet" class="forgot-password" ng-click="forgotPwd()">Forgot password?</ons-button>
+          </div>
+      </ons-page>
+
+      <ons-template id="signup.html">
+        <ons-page ng-controller="SignupController">
+            <ons-toolbar>
+                <div class="right"><ons-toolbar-button ng-click="goToLogin()">Login</ons-toolbar-button></div>
+                <div class="center">Sign Up</div>
+            </ons-toolbar>
+
+            <div class="login-form">
+              <input type="text" class="text-input--underbar" placeholder="Username" value="" ng-model="signup_username">
+              <input type="password" class="text-input--underbar" placeholder="Password" value="" ng-model="signup_password">
+              <input type="email" class="text-input--underbar" placeholder="Email" value="" ng-model="signup_email">
+
+              <br><br>
+              <ons-button modifier="large" class="login-button" ng-click="signup()">Sign Up</ons-button>
+            </div>
+        </ons-page>
+      </ons-template>
+
   </ons-navigator>
+
+<!--
+  <ons-tabbar hide-tabs="{{hideTabs}}">
+    <ons-tab page="master.html" icon="ion-search" label="Find a place" active="true">
+    </ons-tab>
+    <ons-tab page="faves.html" icon="ion-heart" label="Favorites">
+    </ons-tab>
+  </ons-tabbar>
+-->
+
+  <ons-template id="master.html">
+      <ons-page ng-controller="MasterController">
+          <ons-toolbar>
+            <div class="right">
+              <ons-toolbar-button ng-click="goToAdd()">
+                <ons-icon icon="ion-compose" fixed-width="false" style="font-size: 26px; vertical-align: -4px"></ons-icon>
+              </ons-toolbar-button>
+            </div>
+            <div class="center">Noded</div>
+          </ons-toolbar>
+          <ons-list>
+              <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
+                  <ons-row>
+                      <ons-col width="60px">
+                          <div class="item-thum">
+                            <img ng-src="{{ item.get('thumbnail').url() }}">
+                          </div>
+                      </ons-col>
+                      <ons-col>
+                          <header>
+                              <span class="item-ssid">{{ item.get('ssid') }}</span>
+                          </header>
+                      </ons-col>
+                  </ons-row>
+              </ons-list-item>
+          </ons-list>
+      </ons-page>
+  </ons-template>
+
 
   <ons-template id="detail.html">
     <ons-page ng-controller="DetailController">
 
       <ons-toolbar>
-        <div class="left"><ons-back-button>Back</ons-back-button></div>
-        <div class="center">Details</div>
+        <div class="left"><ons-back-button></ons-back-button></div>
+        <div class="center">{{ item.get('ssid').toUpperCase() }}</div>
       </ons-toolbar>
 
       <ons-list modifier="inset" style="margin-top: 10px">
-        <ons-list-item class="item">
-          <ons-row>
-            <ons-col width="60px"> 
-              <div class="item-thum"></div>
-            </ons-col>
-            <ons-col>
-              <header>
-                <span class="item-title">{{item.title}}</span>
-                <span class="item-label">{{item.label}}</span>
-              </header>
-              <p class="item-desc">{{item.desc}}</p>
-            </ons-col>
-          </ons-row>
+
+        <ons-list-item class="detail">
+            <ons-row>
+                <ons-col class="detail-col">
+                  <div class="detail-photo">
+                    <img ng-src="{{ item.get('photo').url() }}">
+                  </div>
+                </ons-col>
+            </ons-row>
         </ons-list-item>
 
-        <ons-list-item modifier="chevron" ng-click="doSomething()">
-          <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
-          Add a note
+        <ons-list-item>
+             <ons-row>
+               <ons-col class="action-col" ng-click="favouriteNode()">
+                 <div class="action-icon"><ons-icon icon="ion-bookmark"></ons-icon></div>
+                 <div class="action-label">Favorite</div>
+               </ons-col>
+               <ons-col class="action-col" ng-click="updateNode('update')">
+                 <div class="action-icon"><ons-icon icon="ion-compose"></ons-icon></div>
+                 <div class="action-label">Update</div>
+               </ons-col>
+               <ons-col class="action-col" ng-click="commentNode('comment')">
+                 <div class="action-icon"><ons-icon icon="ion-chatboxes"></ons-icon></div>
+                 <div class="action-label">Comment</div>
+               </ons-col>
+             </ons-row>
         </ons-list-item>
+
+        <ons-list-item>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">BUSINESS:</div>
+              <div class="detail-right">{{ item.get('owner') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">NETWORK:</div>
+              <div class="detail-right">{{ item.get('ssid') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">PASSWORD:</div>
+              <div class="detail-right">{{ item.get('password') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">SECURITY:</div>
+              <div class="detail-right">{{ item.get('security') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">LOCATION:</div>
+              <div class="detail-right">{{ item.get('point').latitude }}, {{ item.get('point').longitude }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">UPDATED:</div>
+              <div class="detail-right">{{ item.updatedAt.toDateString() }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">NOTES:</div>
+              <div class="detail-right">{{ item.get('notes')  + " " }}
+            </li>
+        </ons-list-item>
+
+        <ons-list-item>
+          <input type="text" class="text-input" placeholder="text" value="" ng-model="note">
+          <button class="button button--light" ng-click="addNote(note)">submit</button>
+        </ons-list-item>
+
       </ons-list>
-
-      <ons-list style="margin-top: 10px">
-        <ons-list-item class="item" ng-repeat="i in [1,2,3]">
-          <header>
-            <span class="item-title">Lorem ipsum dolor sit amet</span>
-          </header>
-          <p class="item-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </ons-list-item>
-      </ons-list>
-
-      <br>
 
     </ons-page>
   </ons-template>
 
-</body>  
+  <ons-template id="add.html">
+    <ons-page ng-controller="AddController">
+
+        <ons-toolbar>
+          <div class="left"><ons-back-button></ons-back-button></div>
+          <div class="center">add</div>
+        </ons-toolbar>
+
+        <div class="add-form">
+          <input type="text" class="text-input--underbar" placeholder="Network Name" value="" ng-model="add_network">
+          <input type="text" class="text-input--underbar" placeholder="Network Password" value="" ng-model="add_password">
+          <input type="text" class="text-input--underbar" placeholder="Business Name" value="" ng-model="add_business">
+          <input type="text" class="text-input--underbar" placeholder="Security Type" value="" ng-model="add_security">
+          <input type="text" class="text-input--underbar" placeholder="Notes" value="" ng-model="add_notes">
+
+          <br><br>
+          <ons-button modifier="medium" class="add-button" ng-click="getGPS()">Add GPS</ons-button>
+          <br><br>
+          <ons-button modifier="medium" class="add-button" ng-click="takePhoto()">Add Photo</ons-button>
+
+          <br><br>
+          <br><br>
+          <ons-button modifier="large" class="add-button" ng-click="addNode()">Submit</ons-button>
+        </div>
+
+    </ons-page>
+  </ons-template>
+
+
+  <ons-template id="faves.html">
+  </ons-template>
+
+</body>
 </html>

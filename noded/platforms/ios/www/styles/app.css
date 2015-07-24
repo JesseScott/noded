@@ -1,3 +1,126 @@
+
+/* TOOLBAR */
+
 .left {
 	text-align: left;
+}
+
+
+/* LIST ITEM */
+
+.item {
+  padding: 10px;
+  line-height: 1;
+}
+.item-thum {
+  background-color: #ccc;
+  width: 50px;
+  height: 50px;
+	overflow: hidden;
+  border-radius: 4px;
+}
+.item-ssid {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* LIST DETAIL */
+
+.detail {
+  padding: 0px;
+  line-height: 1;
+}
+.detail-table {
+	font-size: 12px;
+  color: #666;
+}
+.detail-photo {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+  border-radius: 2px;
+}
+.detail-col {
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+}
+.detail-left {
+	padding: 10px;
+	line-height: 1;
+	float: left;
+}
+.detail-right {
+	padding: 10px;
+	line-height: 1;
+	float: right;
+}
+.action-col {
+  text-align: center;
+  opacity: 0.4;
+  padding: 10px 0 8px;
+}
+
+.action-col:active {
+  opacity: 0.7;
+}
+
+.action-col ons-button {
+  padding: 0;
+  line-height: 1;
+}
+
+
+/* TABLE */
+
+td {
+    display: block;
+    float: left;
+    padding: 10px 0;
+    margin-right:50px;
+}
+td:last-child {
+    margin-right: 0;
+}
+
+/* ADD */
+
+.add-form {
+  text-align: center;
+  width: 80%;
+  margin: 60px auto 0;
+}
+
+.add-button {
+  width: 100%;
+  margin: 0 auto;
+	padding: 10px;
+}
+
+/* LOGIN + SIGNUP */
+
+.login-form {
+  text-align: center;
+  width: 80%;
+  margin: 60px auto 0;
+}
+
+input[type=email], input[type=password], input[type=text] {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  outline: none;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.login-button {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.forgot-password {
+  display: block;
+  margin: 8px auto 0 auto;
+  font-size: 14px;
 }

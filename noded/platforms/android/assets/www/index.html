@@ -19,7 +19,7 @@
   <script src="lib/onsen/js/angular/angular-resource.js"></script>
   <script src="lib/onsen/js/onsenui.js"></script>
 
-  <script src="cordova.js"></script>
+  <!--<script src="cordova.js"></script>-->
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
   <script>
@@ -39,40 +39,93 @@
 <body ng-controller="AppController">
 
   <ons-navigator var="navigator">
-    <ons-page>
-        <ons-toolbar>
-          <div class="center">
-            noded
+
+      <ons-page ng-controller="LoginController">
+          <ons-toolbar>
+              <div class="right"><ons-toolbar-button ng-click="goToSignup()">Signup</ons-toolbar-button></div>
+              <div class="center">Login</div>
+          </ons-toolbar>
+
+          <div class="login-form">
+              <input type="text" class="text-input--underbar" placeholder="Username" value="" ng-model="login_username">
+              <input type="password" class="text-input--underbar" placeholder="Password" value="" ng-model="login_password">
+
+              <br><br>
+              <ons-button modifier="large" class="login-button" ng-click="login()">Log In</ons-button>
+              <br><br>
+              <ons-button modifier="quiet" class="forgot-password" ng-click="forgotPwd()">Forgot password?</ons-button>
           </div>
-        </ons-toolbar>
-        <ons-list ng-controller="MasterController">
-            <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
-                <ons-row>
-                    <ons-col width="60px">
-                        <div class="item-thum">
-                          <img ng-src="{{ item.get('thumbnail').url() }}">
-                        </div>
-                    </ons-col>
-                    <ons-col>
-                        <header>
-                            <span class="item-ssid">{{ item.get('ssid') }}</span>
-                        </header>
-                    </ons-col>
-                </ons-row>
-            </ons-list-item>
-        </ons-list>
-    </ons-page>
+      </ons-page>
+
+      <ons-template id="signup.html">
+        <ons-page ng-controller="SignupController">
+            <ons-toolbar>
+                <div class="right"><ons-toolbar-button ng-click="goToLogin()">Login</ons-toolbar-button></div>
+                <div class="center">Sign Up</div>
+            </ons-toolbar>
+
+            <div class="login-form">
+              <input type="text" class="text-input--underbar" placeholder="Username" value="" ng-model="signup_username">
+              <input type="password" class="text-input--underbar" placeholder="Password" value="" ng-model="signup_password">
+              <input type="email" class="text-input--underbar" placeholder="Email" value="" ng-model="signup_email">
+
+              <br><br>
+              <ons-button modifier="large" class="login-button" ng-click="signup()">Sign Up</ons-button>
+            </div>
+        </ons-page>
+      </ons-template>
+
   </ons-navigator>
+
+<!--
+  <ons-tabbar hide-tabs="{{hideTabs}}">
+    <ons-tab page="master.html" icon="ion-search" label="Find a place" active="true">
+    </ons-tab>
+    <ons-tab page="faves.html" icon="ion-heart" label="Favorites">
+    </ons-tab>
+  </ons-tabbar>
+-->
+
+  <ons-template id="master.html">
+      <ons-page ng-controller="MasterController">
+          <ons-toolbar>
+            <div class="right">
+              <ons-toolbar-button ng-click="goToAdd()">
+                <ons-icon icon="ion-compose" fixed-width="false" style="font-size: 26px; vertical-align: -4px"></ons-icon>
+              </ons-toolbar-button>
+            </div>
+            <div class="center">Noded</div>
+          </ons-toolbar>
+          <ons-list>
+              <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
+                  <ons-row>
+                      <ons-col width="60px">
+                          <div class="item-thum">
+                            <img ng-src="{{ item.get('thumbnail').url() }}">
+                          </div>
+                      </ons-col>
+                      <ons-col>
+                          <header>
+                              <span class="item-ssid">{{ item.get('ssid') }}</span>
+                          </header>
+                      </ons-col>
+                  </ons-row>
+              </ons-list-item>
+          </ons-list>
+      </ons-page>
+  </ons-template>
+
 
   <ons-template id="detail.html">
     <ons-page ng-controller="DetailController">
 
       <ons-toolbar>
         <div class="left"><ons-back-button></ons-back-button></div>
-        <div class="center">{{ item.get('ssid') }}</div>
+        <div class="center">{{ item.get('ssid').toUpperCase() }}</div>
       </ons-toolbar>
 
       <ons-list modifier="inset" style="margin-top: 10px">
+
         <ons-list-item class="detail">
             <ons-row>
                 <ons-col class="detail-col">
@@ -81,56 +134,96 @@
                   </div>
                 </ons-col>
             </ons-row>
-            <ons-row>
-                <ons-col>
-                  <table class="detail-table">
-                    <tr>
-                      <tr>
-                        <th>BUSINESS</th>
-                        <td></td>
-                        <td>{{ item.get('owner') }}</td>
-                      </tr>
-                      <th>NETWORK</th>
-                      <td></td>
-                      <td>{{ item.get('ssid') }}</td>
-                    </tr>
-                    <tr>
-                      <th>PASSWORD</th>
-                      <td></td>
-                      <td>{{ item.get('password') }}</td>
-                    </tr>
-                    <tr>
-                      <th>SECURITY</th>
-                      <td></td>
-                      <td>{{ item.get('security') }}</td>
-                    </tr>
-                    <tr>
-                      <th>LOCATION</th>
-                      <td></td>
-                      <td>{{ item.get('point').latitude }}, + '\n' + {{ item.get('point').longitude }}</td>
-                    </tr>
-                    <tr>
-                      <th>UPDATED</th>
-                      <td></td>
-                      <td>{{ item.updatedAt.toDateString() }}</td>
-                    </tr>
-                    <tr>
-                      <th>NOTES</th>
-                      <td></td>
-                      <td>{{ item.get('notes')  + " "}}</td>
-                    </tr>
-                </table>
-                </ons-col>
-            </ons-row>
         </ons-list-item>
+
         <ons-list-item>
-          <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
+             <ons-row>
+               <ons-col class="action-col" ng-click="favouriteNode()">
+                 <div class="action-icon"><ons-icon icon="ion-bookmark"></ons-icon></div>
+                 <div class="action-label">Favorite</div>
+               </ons-col>
+               <ons-col class="action-col" ng-click="updateNode('update')">
+                 <div class="action-icon"><ons-icon icon="ion-compose"></ons-icon></div>
+                 <div class="action-label">Update</div>
+               </ons-col>
+               <ons-col class="action-col" ng-click="commentNode('comment')">
+                 <div class="action-icon"><ons-icon icon="ion-chatboxes"></ons-icon></div>
+                 <div class="action-label">Comment</div>
+               </ons-col>
+             </ons-row>
+        </ons-list-item>
+
+        <ons-list-item>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">BUSINESS:</div>
+              <div class="detail-right">{{ item.get('owner') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">NETWORK:</div>
+              <div class="detail-right">{{ item.get('ssid') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">PASSWORD:</div>
+              <div class="detail-right">{{ item.get('password') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">SECURITY:</div>
+              <div class="detail-right">{{ item.get('security') }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">LOCATION:</div>
+              <div class="detail-right">{{ item.get('point').latitude }}, {{ item.get('point').longitude }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">UPDATED:</div>
+              <div class="detail-right">{{ item.updatedAt.toDateString() }}
+            </li>
+            <li class="list__item list__item--tappable">
+              <div class="detail-left">NOTES:</div>
+              <div class="detail-right">{{ item.get('notes')  + " " }}
+            </li>
+        </ons-list-item>
+
+        <ons-list-item>
           <input type="text" class="text-input" placeholder="text" value="" ng-model="note">
           <button class="button button--light" ng-click="addNote(note)">submit</button>
         </ons-list-item>
+
       </ons-list>
 
     </ons-page>
+  </ons-template>
+
+  <ons-template id="add.html">
+    <ons-page ng-controller="AddController">
+
+        <ons-toolbar>
+          <div class="left"><ons-back-button></ons-back-button></div>
+          <div class="center">add</div>
+        </ons-toolbar>
+
+        <div class="add-form">
+          <input type="text" class="text-input--underbar" placeholder="Network Name" value="" ng-model="add_network">
+          <input type="text" class="text-input--underbar" placeholder="Network Password" value="" ng-model="add_password">
+          <input type="text" class="text-input--underbar" placeholder="Business Name" value="" ng-model="add_business">
+          <input type="text" class="text-input--underbar" placeholder="Security Type" value="" ng-model="add_security">
+          <input type="text" class="text-input--underbar" placeholder="Notes" value="" ng-model="add_notes">
+
+          <br><br>
+          <ons-button modifier="medium" class="add-button" ng-click="getGPS()">Add GPS</ons-button>
+          <br><br>
+          <ons-button modifier="medium" class="add-button" ng-click="takePhoto()">Add Photo</ons-button>
+
+          <br><br>
+          <br><br>
+          <ons-button modifier="large" class="add-button" ng-click="addNode()">Submit</ons-button>
+        </div>
+
+    </ons-page>
+  </ons-template>
+
+
+  <ons-template id="faves.html">
   </ons-template>
 
 </body>
