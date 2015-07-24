@@ -32,7 +32,6 @@
     var init = function () {
       if($scope.currentUser) {
         console.log("USER: " + $scope.currentUser.getUsername() );
-        console.log('logged in !!!');
         $scope.navigator.pushPage("master.html");
       }
       else {
@@ -46,7 +45,7 @@
     }
 
     $scope.forgotPwd = function() {
-      alert('this still needs to be coded');
+      ons.notification.alert({message: 'this still needs to be coded!'});
     }
 
     $scope.login = function() {
@@ -100,26 +99,30 @@
     $scope.favouriteNode = function() {
         console.log('fave');
         ParseService.favouriteNode($scope.item, function(object) {
-          alert('node added to faves!');
+          ons.notification.alert({message: 'node added to faves!'});
         });
     };
 
     $scope.updateNode = function(update) {
         console.log('update');
         ParseService.updateNode($scope.item, update, function(object) {
-          alert('node updated!');
+          ons.notification.alert({message: 'node updated!'});
         });
     };
 
-    $scope.navigateNode = function(location) {
+    $scope.navigateNode = function() {
         console.log('navigate');
+        var lat = $scope.item.get('point').latitude;
+        var lon = $scope.item.get('point').longitude;
+        $data.latitude = lat;
+        $data.longitude = lon;
         $scope.navigator.pushPage('nav.html');
     };
 
     $scope.commentNode = function(comment) {
         console.log('comment');
         ParseService.commentNode($scope.item, comment, function(object) {
-          alert('comment added!');
+          ons.notification.alert({message: 'comment added to node!'});
         });
     };
 
@@ -139,6 +142,43 @@
 
   });
 
+  module.controller('MapController', function($scope, $data, $timeout, ParseService) {
+    $scope.latitude  = $data.latitude;
+    $scope.longitude = $data.longitude;
+
+
+    $scope.map;
+    $scope.markers = [];
+    $scope.markerId = 1;
+
+    //Map initialization
+    $timeout(function(){
+
+       var latlng = new google.maps.LatLng($scope.latitude, $scope.longitude);
+       var myOptions = {
+           zoom: 18,
+           center: latlng,
+           mapTypeId: google.maps.MapTypeId.ROADMAP
+       };
+       $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+       $scope.overlay = new google.maps.OverlayView();
+       $scope.overlay.draw = function() {};
+       $scope.overlay.setMap($scope.map);
+       $scope.element = document.getElementById('map_canvas');
+       $scope.hammertime = Hammer($scope.element).on("hold", function(event) {
+           $scope.addOnClick(event);
+       });
+
+    },100);
+
+
+    $scope.rad = function(x) {
+      return x * Math.PI / 180;
+    };
+
+
+  });
+
 
   /* FACTORIES */
 
@@ -146,7 +186,6 @@
       var data = {};
       return data;
   });
-
 
   module.factory('geolocation', function ($rootScope, cordovaReady) {
     return {
