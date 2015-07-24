@@ -162,7 +162,7 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Update
-      updateNode : function updateNode(_obj, _update) {
+      updateNode : function updateNode(_obj, _update, callback) {
         console.log('item is ' + _obj.id);
         console.log('update is ' + _update);
 
@@ -179,7 +179,7 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
       },
 
       // Add Comment
-      commentNode : function commentNode(_obj, _note) {
+      commentNode : function commentNode(_obj, _note, callback) {
         console.log('item is ' + _obj.id);
         console.log('note is ' + _note);
 
@@ -188,7 +188,7 @@ angular.module('service', ['ngResource']).factory('ParseService', function($reso
         obj.addUnique('notes', _note);
         obj.save(null, {
           success: function(obj) {
-            //callback(obj);
+            callback(obj);
           },
           error: function(error) {
             alert("Error: " + error.message);

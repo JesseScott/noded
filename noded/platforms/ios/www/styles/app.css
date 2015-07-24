@@ -49,11 +49,17 @@
 	padding: 10px;
 	line-height: 1;
 	float: left;
+	font-weight: bold;
 }
 .detail-right {
 	padding: 10px;
 	line-height: 1;
 	float: right;
+}
+.detail-button {
+  width: 50%;
+  margin: 0 auto;
+	padding: 10px;
 }
 .action-col {
   text-align: center;
@@ -95,6 +101,17 @@ td:last-child {
   width: 100%;
   margin: 0 auto;
 	padding: 10px;
+}
+
+/* MAP */
+
+#map_canvas {
+    position: absolute;
+    width:100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: -1
 }
 
 /* LOGIN + SIGNUP */

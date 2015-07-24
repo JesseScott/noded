@@ -3,7 +3,7 @@
 
   /* APP */
 
-  var module = angular.module('app', ['onsen', 'service']);
+  var module = angular.module('app', ['onsen', 'service', 'cordovaGeolocationModule']);
 
   /* CONTROLLERS */
 
@@ -114,8 +114,10 @@
         console.log('navigate');
         var lat = $scope.item.get('point').latitude;
         var lon = $scope.item.get('point').longitude;
+        var title = $scope.item.get('owner');
         $data.latitude = lat;
         $data.longitude = lon;
+        $data.title = title;
         $scope.navigator.pushPage('nav.html');
     };
 
@@ -143,15 +145,14 @@
   });
 
   module.controller('MapController', function($scope, $data, $timeout, ParseService) {
+
     $scope.latitude  = $data.latitude;
     $scope.longitude = $data.longitude;
-
-
+    $scope.title = $data.title;
     $scope.map;
-    $scope.markers = [];
-    $scope.markerId = 1;
+    var bounds = new google.maps.LatLngBounds();
 
-    //Map initialization
+    //Map Init
     $timeout(function(){
 
        var latlng = new google.maps.LatLng($scope.latitude, $scope.longitude);
@@ -160,21 +161,45 @@
            center: latlng,
            mapTypeId: google.maps.MapTypeId.ROADMAP
        };
+
        $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
        $scope.overlay = new google.maps.OverlayView();
        $scope.overlay.draw = function() {};
        $scope.overlay.setMap($scope.map);
        $scope.element = document.getElementById('map_canvas');
-       $scope.hammertime = Hammer($scope.element).on("hold", function(event) {
-           $scope.addOnClick(event);
+
+       var marker = new google.maps.Marker({
+           position: latlng,
+           map: $scope.map,
+           title: $scope.title
        });
+       bounds.extend(marker.position);
 
-    },100);
+       $scope.getCurrentPosition();
 
+    }, 100);
 
-    $scope.rad = function(x) {
-      return x * Math.PI / 180;
+    $scope.getCurrentPosition = function() {
+      console.log('getCurrentPosition');
+      var options = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true };
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
     };
+
+    function onSuccess(position) {
+      console.log('onSuccess');
+      var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var marker = new google.maps.Marker({
+          position: latlng,
+          map: $scope.map,
+          title: 'Your Location'
+      });
+      bounds.extend(marker.position);
+      $scope.map.fitBounds(bounds);
+    }
+
+    function onError(error) {
+      ons.notification.alert({message: error.message});
+    }
 
 
   });
