@@ -20,10 +20,9 @@
   <script src="lib/onsen/js/angular/angular-resource.js"></script>
   <script src="lib/onsen/js/onsenui.js"></script>
 
-  <script src="lib/onsen/js/third/cordovaGeolocationModule.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3"></script>
 
-  <!--<script src="cordova.js"></script>-->
+  <script src="cordova.js"></script>
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
 
@@ -83,14 +82,15 @@
 
   </ons-navigator>
 
-<!--
-  <ons-tabbar hide-tabs="{{hideTabs}}">
-    <ons-tab page="master.html" icon="ion-search" label="Find a place" active="true">
-    </ons-tab>
-    <ons-tab page="faves.html" icon="ion-heart" label="Favorites">
-    </ons-tab>
-  </ons-tabbar>
--->
+
+  <!-- <ons-tabbar hide-tabs="{{hideTabs}}">
+    <ons-tab page="master.html" icon="ion-ios-list-outline" label="List" active="true"></ons-tab>
+    <ons-tab page="search.html" icon="ion-search" label="Search"></ons-tab>
+    <ons-tab page="faves.html" icon="ion-heart" label="Favorites"></ons-tab>
+    <ons-tab page="map.html" icon="ion-map" label="Map"></ons-tab>
+  </ons-tabbar> -->
+
+  <!-- MASTER -->
 
   <ons-template id="master.html">
       <ons-page ng-controller="MasterController">
@@ -122,6 +122,7 @@
       </ons-page>
   </ons-template>
 
+  <!-- PUSH PAGES -->
 
   <ons-template id="detail.html">
     <ons-page ng-controller="DetailController">
@@ -229,10 +230,6 @@
     </ons-page>
   </ons-template>
 
-
-  <ons-template id="faves.html">
-  </ons-template>
-
   <ons-template id="nav.html">
     <ons-page ng-controller="MapController">
         <ons-toolbar fixed-style>
@@ -242,6 +239,18 @@
         <div id="map_canvas"></div>
     </ons-page>
   </ons-template>
+
+  <!-- TAB PAGES -->
+
+  <ons-template id="search.html">
+  </ons-template>
+
+  <ons-template id="faves.html">
+  </ons-template>
+
+  <ons-template id="map.html">
+  </ons-template>
+
 
 </body>
 </html>

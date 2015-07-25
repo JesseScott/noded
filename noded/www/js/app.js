@@ -3,7 +3,7 @@
 
   /* APP */
 
-  var module = angular.module('app', ['onsen', 'service', 'cordovaGeolocationModule']);
+  var module = angular.module('app', ['onsen', 'service']);
 
   /* CONTROLLERS */
 
