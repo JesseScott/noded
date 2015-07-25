@@ -23,7 +23,7 @@
   <script src="lib/onsen/js/third/cordovaGeolocationModule.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3"></script>
 
-  <script src="cordova.js"></script>
+  <!--<script src="cordova.js"></script>-->
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
 
@@ -47,9 +47,9 @@
   <ons-navigator var="navigator">
 
       <ons-page ng-controller="LoginController">
-          <ons-toolbar>
+          <ons-toolbar fixed-style>
               <div class="right"><ons-toolbar-button ng-click="goToSignup()">Signup</ons-toolbar-button></div>
-              <div class="center">Login</div>
+              <div class="center">LOGIN</div>
           </ons-toolbar>
 
           <div class="login-form">
@@ -65,9 +65,9 @@
 
       <ons-template id="signup.html">
         <ons-page ng-controller="SignupController">
-            <ons-toolbar>
+            <ons-toolbar fixed-style>
                 <div class="right"><ons-toolbar-button ng-click="goToLogin()">Login</ons-toolbar-button></div>
-                <div class="center">Sign Up</div>
+                <div class="center">SIGN UP</div>
             </ons-toolbar>
 
             <div class="login-form">
@@ -94,13 +94,13 @@
 
   <ons-template id="master.html">
       <ons-page ng-controller="MasterController">
-          <ons-toolbar>
+          <ons-toolbar fixed-style>
             <div class="right">
               <ons-toolbar-button ng-click="goToAdd()">
                 <ons-icon icon="ion-compose" fixed-width="false" style="font-size: 26px; vertical-align: -4px"></ons-icon>
               </ons-toolbar-button>
             </div>
-            <div class="center">Noded</div>
+            <div class="center">NODED</div>
           </ons-toolbar>
           <ons-list>
               <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
@@ -126,7 +126,7 @@
   <ons-template id="detail.html">
     <ons-page ng-controller="DetailController">
 
-      <ons-toolbar>
+      <ons-toolbar fixed-style>
         <div class="left"><ons-back-button></ons-back-button></div>
         <div class="center">{{ item.get('ssid').toUpperCase() }}</div>
       </ons-toolbar>
@@ -204,9 +204,9 @@
   <ons-template id="add.html">
     <ons-page ng-controller="AddController">
 
-        <ons-toolbar>
+        <ons-toolbar fixed-style>
           <div class="left"><ons-back-button></ons-back-button></div>
-          <div class="center">add</div>
+          <div class="center">ADD</div>
         </ons-toolbar>
 
         <div class="add-form">
@@ -235,17 +235,12 @@
 
   <ons-template id="nav.html">
     <ons-page ng-controller="MapController">
-
-        <ons-toolbar>
+        <ons-toolbar fixed-style>
           <div class="left"><ons-back-button></ons-back-button></div>
-          <div class="center">nav</div>
+          <div class="center">NAVIGATION</div>
         </ons-toolbar>
-
         <div id="map_canvas"></div>
-
     </ons-page>
-
-
   </ons-template>
 
 </body>

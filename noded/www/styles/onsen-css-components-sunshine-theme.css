@@ -463,7 +463,8 @@ h6 {
   line-height: 44px;
   font-size: 17px;
   font-weight: 500;
-  color: #333;
+  /*color: #333;*/
+  color: #eb482f;
 }
 .navigation-bar__title {
   line-height: 44px;
