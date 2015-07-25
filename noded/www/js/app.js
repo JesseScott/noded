@@ -58,30 +58,19 @@
   });
 
   var MasterController = function($scope, $data, ParseService) {
-        $scope.hideTabs = false;
+        //$scope.hideTabs = false;
+
         ParseService.getNodes(function(results) {
           $scope.$apply(function() {
             $scope.items = results;
           });
         });
 
-        // document.addEventListener("deviceready", onDeviceReady, false);
-        // function onDeviceReady(){
-        //   alert("PhoneGap is ready.");
-        // }
-
-        // geolocation.getCurrentPosition(function (position) {
-        //   alert('Latitude: '              + position.coords.latitude          + '\n' +
-        //         'Longitude: '             + position.coords.longitude         + '\n' +
-        //         'Altitude: '              + position.coords.altitude          + '\n' +
-        //         'Timestamp: '             + position.timestamp                + '\n'
-        //         );
-        // });
-
         $scope.showDetail = function(index) {
           var item = $scope.items[index];
           $data.selectedItem = item;
           $scope.navigator.pushPage('detail.html');
+          // loadPage() ???
         };
 
         $scope.goToAdd = function() {
@@ -211,7 +200,7 @@
       var data = {};
       return data;
   });
-
+/*
   module.factory('geolocation', function ($rootScope, cordovaReady) {
     return {
         getCurrentPosition: cordovaReady(function (onSuccess, onError, options) {
@@ -238,7 +227,8 @@
         })
       };
   });
-
+*/
+/*
   module.factory('cordovaReady', function() {
     return function (fn) {
       var queue = [];
@@ -256,7 +246,7 @@
       };
     };
   });
-
+*/
 
 
 
