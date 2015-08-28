@@ -105,7 +105,6 @@
           <ons-list>
               <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
                   <ons-row>
-                      <ons-col width="60px">
                           <div class="item-thum">
                             <img ng-src="{{ item.get('thumbnail').url() }}">
                           </div>
@@ -216,16 +215,19 @@
           <input type="text" class="text-input--underbar" placeholder="Business Name" value="" ng-model="add_business">
           <input type="text" class="text-input--underbar" placeholder="Security Type" value="" ng-model="add_security">
           <input type="text" class="text-input--underbar" placeholder="Notes" value="" ng-model="add_notes">
-
           <br><br>
-          <ons-button modifier="medium" class="add-button" ng-click="getGPS()">Add GPS</ons-button>
-          <br><br>
-          <ons-button modifier="medium" class="add-button" ng-click="takePhoto()">Add Photo</ons-button>
-
-          <br><br>
+          <ons-row>
+              <ons-col>
+                <ons-button modifier="medium" class="" ng-click="getGPS()">Add GPS</ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="medium" class="" ng-click="takePhoto()">Add Photo</ons-button>
+              </ons-col>
+          </ons-row>
           <br><br>
           <ons-button modifier="large" class="add-button" ng-click="addNode()">Submit</ons-button>
         </div>
+
 
     </ons-page>
   </ons-template>

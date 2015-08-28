@@ -8,18 +8,22 @@
 /* LIST ITEM */
 
 .item {
-  padding: 10px;
+  padding: 8px;
   line-height: 1;
 }
 .item-thum {
   background-color: #ccc;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
 	overflow: hidden;
   border-radius: 4px;
 }
 .item-ssid {
   font-size: 24px;
+  font-weight: 500;
+}
+.item-owner {
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -93,13 +97,13 @@ td:last-child {
 .add-form {
   text-align: center;
   width: 80%;
-  margin: 60px auto 0;
+  margin: 10px auto 0;
 }
 
 .add-button {
   width: 100%;
   margin: 0 auto;
-	padding: 10px;
+	padding: 5px;
 }
 
 /* MAP */
