@@ -105,6 +105,7 @@
           <ons-list>
               <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
                   <ons-row>
+                      <ons-col width="30">
                           <div class="item-thum">
                             <img ng-src="{{ item.get('thumbnail').url() }}">
                           </div>
@@ -218,7 +219,7 @@
           <br><br>
           <ons-row>
               <ons-col>
-                <ons-button modifier="medium" class="" ng-click="getGPS()">Add GPS</ons-button>
+                <ons-button modifier="medium" class="" ng-click="modal.show()">Add Location</ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="medium" class="" ng-click="takePhoto()">Add Photo</ons-button>
@@ -228,6 +229,13 @@
           <ons-button modifier="large" class="add-button" ng-click="addNode()">Submit</ons-button>
         </div>
 
+        <ons-modal var="modal">
+          <div class="add-form">
+            <input type="text" class="text-input--underbar" placeholder="Latitude" value="" ng-model="add_latitude">
+            <input type="text" class="text-input--underbar" placeholder="Longitude" value="" ng-model="add_longitude">
+            <ons-button modifier="medium" class="" ng-click="modal.hide()">Submit Location</ons-button>
+          </div>
+        </ons-modal>
 
     </ons-page>
   </ons-template>

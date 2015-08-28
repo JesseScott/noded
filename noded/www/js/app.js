@@ -29,7 +29,7 @@
 
   module.controller('LoginController', function($scope, ParseService) {
 
-    var init = function () {
+    var init = function() {
       if($scope.currentUser) {
         console.log("USER: " + $scope.currentUser.getUsername() );
         $scope.navigator.pushPage("master.html");
@@ -120,6 +120,33 @@
   });
 
   module.controller('AddController', function($scope, $data, ParseService) {
+
+
+    $scope.getLocation = function() {
+      ons.notification.confirm({
+        message: 'Would you like to enter a location manually, or use your current location?',
+        buttonLabels: ['Cancel', 'Manual', 'GPS'],
+        callback: function(idx) {
+          switch(idx) {
+            case 0:
+              ons.notification.alert({
+                message: 'You pressed "Cancel".'
+              });
+              break;
+            case 1:
+              modal.show();
+              break;
+            case 2:
+              ons.notification.alert({
+                message: 'You pressed "GPS".'
+              });
+              break;
+          }
+        }
+      });
+    }
+
+
 
     $scope.addNode = function() {
         ParseService.addNode(
