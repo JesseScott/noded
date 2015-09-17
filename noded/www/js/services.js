@@ -4,6 +4,14 @@
 
 angular.module('service', ['ngResource'])
 
+
+  /* DATA */
+
+.factory('$data', function() {
+  var data = {};
+  return data;
+})
+
 /* PARSE FACTORY */
 .factory('ParseService', function($resource) {
 
